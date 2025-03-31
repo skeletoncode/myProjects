@@ -14,12 +14,13 @@ import java.util.List;
 @RequestMapping("/api/v1/services")
 @RestController
 public class ServiceController {
-//   не работает в POSTMAN
+//   не работает в POSTMAN,
 //    @PostMapping("{name}")
 //    public Long createService(@Valid @RequestBody ServiceRequestDTO serviceRequestDTO, @PathVariable("name") String name ) {
 //
 //        return 0L;
 //    }
+
     @PostMapping
     public Long createService(@Valid @RequestBody ServiceRequestDTO serviceRequestDTO) {
 
