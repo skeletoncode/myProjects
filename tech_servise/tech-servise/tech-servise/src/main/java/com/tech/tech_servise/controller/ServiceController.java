@@ -14,7 +14,12 @@ import java.util.List;
 @RequestMapping("/api/v1/services")
 @RestController
 public class ServiceController {
-
+//   не работает в POSTMAN
+//    @PostMapping("{name}")
+//    public Long createService(@Valid @RequestBody ServiceRequestDTO serviceRequestDTO, @PathVariable("name") String name ) {
+//
+//        return 0L;
+//    }
     @PostMapping
     public Long createService(@Valid @RequestBody ServiceRequestDTO serviceRequestDTO) {
 
@@ -27,16 +32,25 @@ public class ServiceController {
         return null;
     }
 
-// этот метод не функционирует
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+
+//    @RequestMapping(value = "/update", method = RequestMethod.POST)
+//    public String changeServiceByName (@RequestParam String name, @RequestParam String newName) {
+//
+//        return name;
+//    }
+    @PostMapping(value = "/update")
     public String changeServiceByName (@RequestParam String name, @RequestParam String newName) {
 
-        return name;
+    return name;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public List<ServiceRequestDTO> getAllServices() {
         return null;
     }
+//    @RequestMapping(value = "/all", method = RequestMethod.GET)
+//    public List<ServiceRequestDTO> getAllServices() {
+//        return null;
+//    }
 
 }
