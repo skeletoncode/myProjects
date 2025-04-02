@@ -1,19 +1,46 @@
 package com.tech.tech_servise.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.tech.tech_servise.constants.GenderClient;
+import com.tech.tech_servise.constants.TypeClient;
+import com.tech.tech_servise.constants.TypeService;
+import jakarta.validation.constraints.*;
 
-public class ServiceRequestDTO {
+import java.time.LocalDateTime;
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public record ServiceRequestDTO (
 
     @NotNull
     @NotBlank
     @NotEmpty
-    private String serviceName;
-
+    String serviceName,
 
     @NotBlank
     @NotEmpty
     @NotBlank
-    private String master;
+    String master,
+
+    @Positive
+    double price,
+
+    @Positive
+    int id,
+
+    @NotBlank
+    @NotEmpty
+    @NotBlank
+    String description,
+
+    @NotNull
+    TypeService typeService,
+
+    @NotNull
+    @Past
+    LocalDateTime dateCreated
+)
+{
 }
