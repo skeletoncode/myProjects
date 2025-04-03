@@ -1,5 +1,6 @@
 package com.tech.tech_servise.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.tech.tech_servise.constants.GenderClient;
@@ -15,16 +16,19 @@ public record ReservationRequestDTO (
         @Positive
         int id,
 
-        @NotBlank
+//        @NotBlank  дата не может быть пустой строкой
         @Future
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
         LocalDateTime dateReservation,
 
-        @NotBlank
+//        @NotBlank дата не может быть пустой строкой
         @Past
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
         LocalDateTime dateCreateReservation,
 
-        @NotNull @NotBlank
-        List<ServiceResponseDTO> services,
+//        @NotNull @NotBlank достаточно передать список идентификаторов услуг, а не целые обьекты
+//        List<ServiceResponseDTO> services,
+        List<Integer> services,
 
         @NotNull @NotBlank
         @NotEmpty
@@ -33,10 +37,12 @@ public record ReservationRequestDTO (
         @NotNull @NotBlank @NotEmpty
         String client,
 
-        @NotNull @NotBlank
+        @NotNull
+//        @NotBlank enum не могут быть пустой строкой
         TypeClient typeClient,
 
-        @NotNull @NotBlank @NotEmpty
+        @NotNull
+//        @NotBlank @NotEmpty enum не могут быть пустой строкой
         GenderClient genderClient
 )
 

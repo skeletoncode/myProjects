@@ -41,6 +41,17 @@ public class ServiceController {
 //
 //        return 0L;
 //    }
+/*{
+    "id": "1",
+        "date_reservation": "2026-07-15 15:00",
+        "date_create_reservation": "2025-01-15 15:00",
+        "manger": "manager",
+        "client": "client",
+        "type_client": "NEW",
+        "gender_client": "MALE",
+        "services": [23, 78]
+
+} */
 
     @PostMapping
     public ResponseEntity<?> createService(@Valid @RequestBody ServiceRequestDTO serviceRequestDTO, HttpServletRequest request) {
