@@ -14,7 +14,7 @@ import java.util.List;
 public record ReservationRequestDTO (
 
         @Positive
-        int id,
+        Long id,
 
 //        @NotBlank  дата не может быть пустой строкой
         @Future
@@ -28,7 +28,7 @@ public record ReservationRequestDTO (
 
 //        @NotNull @NotBlank достаточно передать список идентификаторов услуг, а не целые обьекты
 //        List<ServiceResponseDTO> services,
-        List<Integer> services,
+       List<Long> idServices,
 
         @NotNull @NotBlank
         @NotEmpty

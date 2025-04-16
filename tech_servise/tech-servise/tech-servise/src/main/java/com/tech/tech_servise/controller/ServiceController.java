@@ -32,6 +32,8 @@ public class ServiceController {
     // ResponseEntity<BODY_DATA_TYPE> тип тела ответа
     // BODY_DATA_TYPE
 
+
+
     private final ServiceServ serviceServ;
 
 
@@ -61,7 +63,7 @@ public class ServiceController {
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<ServiceResponseDTO> getServiceById(@Positive @RequestParam int id) {
+    public ResponseEntity<ServiceResponseDTO> getServiceById(@Positive @RequestParam Long id) {
         log.info("GET request with Service ID {}", id);
         return new ResponseEntity<>(serviceServ.getServiceById(id), HttpStatus.OK);
     }

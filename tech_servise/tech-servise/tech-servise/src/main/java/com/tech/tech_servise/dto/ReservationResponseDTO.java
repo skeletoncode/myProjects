@@ -11,7 +11,7 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record ReservationResponseDTO (
 
-        int id,
+        Long id,
         LocalDateTime dateReservation,
         LocalDateTime dateCreateReservation,
         List<ServiceResponseDTO> services,

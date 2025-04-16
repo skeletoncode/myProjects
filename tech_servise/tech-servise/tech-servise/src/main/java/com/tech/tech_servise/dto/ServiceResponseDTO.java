@@ -14,12 +14,12 @@ public record ServiceResponseDTO(
         String serviceName,
         String master,
         //@JsonProperty("service_price")
-        int price,
+        double price,
         String description,
-        TypeClient typeClient,
-        TypeService typeService,
-        LocalDateTime dateCreated,
-        GenderClient genderClient
+        Long id,
+        //TypeService typeService,
+        LocalDateTime dateCreated
+       // GenderClient genderClient
 )
 {
 }

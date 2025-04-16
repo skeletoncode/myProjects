@@ -1,20 +1,20 @@
 package com.tech.tech_servise.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+@Builder
 @RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "service")
-public class Service {
+@AllArgsConstructor
+public class Servise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,9 @@ public class Service {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "service_status")
+    private Boolean serviceStatus;
+
     @Column(name = "create_srv")
     @CreationTimestamp  //  для автоматического создания времени
     private LocalDateTime createSrv;
@@ -42,7 +45,10 @@ public class Service {
     @UpdateTimestamp
     private LocalDateTime updateSrv;
 
+    @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isActive;
+
     @ManyToOne
-    public ServiceType type;
+    private ServiceType serviceType;
 
 }

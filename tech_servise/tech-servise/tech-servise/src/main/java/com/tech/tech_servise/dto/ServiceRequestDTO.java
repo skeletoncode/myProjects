@@ -27,9 +27,6 @@ public record ServiceRequestDTO (
     @Positive
     double price,
 
-    @Positive
-    int id,
-
     @NotBlank
     @NotEmpty
     @NotBlank
@@ -40,7 +37,10 @@ public record ServiceRequestDTO (
 
     @NotNull
     @Past
-    LocalDateTime dateCreated
+    LocalDateTime dateCreated,
+
+    @NotNull
+    Boolean isActive
 )
 {
 }
