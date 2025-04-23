@@ -55,7 +55,7 @@ public class ServiceServ {
     public List<ServiceResponseDTO> getServiceByType(TypeService type) {
         // TODO :: get Service by type from database
         List<Servise> servises = serviceRepository
-                .findAllByServiceTypeNameLatAndIsActiveTrue(type.toString());
+                .findAllByServiceTypeNameRusAndIsActiveTrue(type.toString());
         return servises.stream().map(serviceMapper::mapToDTO).toList();
 
         // TODO :: Not found Exception

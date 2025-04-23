@@ -54,10 +54,12 @@ public class ReservationController {
         return new ResponseEntity<>(reservation.changeReservationTime(id, dateTimeNew),HttpStatus.OK);
     }
 
+    // получение брони по дате и времени
     @GetMapping(path = "/allReservations", produces = "application/json")
-    public List<ReservationResponseDTO> getAllReservations() {
+    public List<ReservationResponseDTO> getAllReservations(LocalDateTime fromDateReservation,
+                                                           LocalDateTime toDateReservation) {
         log.debug("GET allReservations");
-        return reservation.getReservations();
+        return reservation.getReservations(fromDateReservation, toDateReservation);
     }
 
     @GetMapping(path = "/{idReservation}", produces = "application/json")

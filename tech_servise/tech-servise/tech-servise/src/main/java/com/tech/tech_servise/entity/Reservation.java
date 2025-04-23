@@ -6,20 +6,20 @@ import com.tech.tech_servise.constants.TypeClient;
 import com.tech.tech_servise.constants.TypeService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 @RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "reservation")
+@AllArgsConstructor
 public class Reservation {
 
     @Column(name ="id")

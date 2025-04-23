@@ -14,10 +14,10 @@ public record ReservationResponseDTO (
         Long id,
         LocalDateTime dateReservation,
         LocalDateTime dateCreateReservation,
-        List<ServiceResponseDTO> services,
+        List<Long> services,
         String manger,
         String client,
-        TypeClient typeClient,
+       // TypeClient typeClient,
         GenderClient genderClient
 )
 

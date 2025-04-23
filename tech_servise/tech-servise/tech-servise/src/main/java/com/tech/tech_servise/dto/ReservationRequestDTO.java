@@ -37,13 +37,15 @@ public record ReservationRequestDTO (
         @NotNull @NotBlank @NotEmpty
         String client,
 
-        @NotNull
+      @NotNull
 //        @NotBlank enum не могут быть пустой строкой
-        TypeClient typeClient,
+      TypeClient typeClient,
 
         @NotNull
 //        @NotBlank @NotEmpty enum не могут быть пустой строкой
-        GenderClient genderClient
+        GenderClient genderClient,
+
+        boolean isActive
 )
 
 {
