@@ -32,7 +32,7 @@ public class ReservationController {
 
     private final ServiceReservation reservation;
 
-    // как оттестировать данный метод, не составить запрос в POSTMAN
+
     @PostMapping(produces = "application/json")
     public ResponseEntity<?> createReservation(@Valid @RequestBody ReservationRequestDTO reservationRequestDTO, HttpServletRequest httpServletRequest) {
         log.debug("POST request. Reservation {}", reservationRequestDTO);
@@ -54,12 +54,18 @@ public class ReservationController {
         return new ResponseEntity<>(reservation.changeReservationTime(id, dateTimeNew),HttpStatus.OK);
     }
 
-    // получение брони по дате и времени
+
     @GetMapping(path = "/allReservations", produces = "application/json")
-    public List<ReservationResponseDTO> getAllReservations(LocalDateTime fromDateReservation,
-                                                           LocalDateTime toDateReservation) {
+    public List<ReservationResponseDTO> getAllReservations(){
         log.debug("GET allReservations");
-        return reservation.getReservations(fromDateReservation, toDateReservation);
+        return reservation.getReservations();
+    }
+    // получение брони по дате и времени
+    @GetMapping(path = "/localDateTimeReservations", produces = "application/json")
+    public List<ReservationResponseDTO> getLocalDatetimeReservations(LocalDateTime fromDateReservation,
+                                                                    LocalDateTime toDateReservation) {
+        log.debug("GET localDatetimeReservations");
+        return reservation.getReservationLocalDatetime(fromDateReservation, toDateReservation);
     }
 
     @GetMapping(path = "/{idReservation}", produces = "application/json")
@@ -67,4 +73,5 @@ public class ReservationController {
         log.debug("GET servicesByReservation id = {}", idReservation);
         return reservation.getServicesByReservationId(idReservation);
     }
+
 }

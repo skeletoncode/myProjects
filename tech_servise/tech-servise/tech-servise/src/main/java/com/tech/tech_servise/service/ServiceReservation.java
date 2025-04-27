@@ -26,9 +26,11 @@ public class ServiceReservation {
         ReservationTypeClient reservationTypeClient = reservationTypeClientRepository
                 .findAllByTypeClientLat(reservationRequestDTO.typeClient())
                 .get();
-
+        Reservation reservation = reservationMapper.mapToEntity(reservationRequestDTO);
+        reservation.setReservationType(reservationTypeClient);
+        reservationRepository.save(reservation);
         // TODO :: create Reservation in database
-        return null;
+        return reservation.getId();
     }
     public void cancelReservation(int reservationId) {
         // TODO :: cancel(delete) Reservation in database
@@ -37,15 +39,45 @@ public class ServiceReservation {
         // TODO :: change Reservation time in database
         return null;
     }
-    public List<ReservationResponseDTO> getReservations(LocalDateTime fromDateReservation,
-                                                        LocalDateTime toDateReservation) {
+    public List<ReservationResponseDTO> getReservations() {
        List<Reservation> reservations = reservationRepository
-               .findByFilter(fromDateReservation, toDateReservation);
+               .findAll();
+
         // TODO :: create get all reservations from database
         return reservations.stream().map(reservationMapper::mapToDTO).toList();
     }
-    public List<ServiceResponseDTO> getServicesByReservationId(int reservationId) {
-        // TODO :: create get Services by Reservation Id from database
-        return null;
+
+    public List<ReservationResponseDTO> getReservationLocalDatetime(LocalDateTime fromDateReservation,
+                                                                    LocalDateTime toDateReservation ) {
+        List<Reservation> reservations = reservationRepository
+                .findByFilter(fromDateReservation, toDateReservation);
+
+        return reservations.stream().map(reservationMapper::mapToDTO).toList();
     }
+
+
+    public ReservationResponseDTO getReservationById(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .get();
+        // TODO :: create get Services by Reservation Id from database
+        return reservationMapper.mapToDTO(reservation);
+    }
+    public List<ReservationResponseDTO> getReservationByManager(String managerName) {
+        List<Reservation> reservations = reservationRepository
+                .findAllByManger(managerName);
+        return reservations.stream().map(reservationMapper::mapToDTO).toList();
+    }
+
+    public List<ReservationResponseDTO> getReservationByClient(String clientName) {
+        List<Reservation> reservations = reservationRepository
+                .findAllByClient(clientName);
+        return reservations.stream().map(reservationMapper::mapToDTO).toList();
+    }
+
+    public List<ReservationResponseDTO> getReservationByType( TypeClient typeClient) {
+        List<Reservation> reservations = reservationRepository
+                .findAllByReservationTypeClientTypeClientLatAndIsActiveTrue(typeClient.toString());
+        return reservations.stream().map(reservationMapper::mapToDTO).toList();
+    }
+
 }

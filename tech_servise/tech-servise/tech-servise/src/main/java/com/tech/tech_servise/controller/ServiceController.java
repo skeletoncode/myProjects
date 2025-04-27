@@ -3,6 +3,7 @@ package com.tech.tech_servise.controller;
 import com.tech.tech_servise.constants.TypeService;
 import com.tech.tech_servise.dto.ServiceRequestDTO;
 import com.tech.tech_servise.dto.ServiceResponseDTO;
+import com.tech.tech_servise.exceptions.ServiceException;
 import com.tech.tech_servise.service.ServiceServ;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -65,8 +67,13 @@ public class ServiceController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<ServiceResponseDTO> getServiceById(@Positive @RequestParam Long id) {
         log.info("GET request with Service ID {}", id);
-        return new ResponseEntity<>(serviceServ.getServiceById(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(serviceServ.getServiceById(id), HttpStatus.OK);
+        } catch (ServiceException e) {
+            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
+        }
     }
+
 
 
 //    @RequestMapping(value = "/update", method = RequestMethod.POST)

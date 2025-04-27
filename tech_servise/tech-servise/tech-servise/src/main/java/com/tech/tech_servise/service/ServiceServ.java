@@ -5,10 +5,12 @@ import com.tech.tech_servise.dto.ServiceRequestDTO;
 import com.tech.tech_servise.dto.ServiceResponseDTO;
 import com.tech.tech_servise.entity.ServiceType;
 import com.tech.tech_servise.entity.Servise;
+import com.tech.tech_servise.exceptions.ServiceException;
 import com.tech.tech_servise.mapper.ServiceMapper;
 import com.tech.tech_servise.repository.ServiceRepository;
 import com.tech.tech_servise.repository.ServiceTypeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.security.Provider;
@@ -26,7 +28,8 @@ public class ServiceServ {
     public Long createService(ServiceRequestDTO serviceRequestDTO) {
         ServiceType serviceType = serviceTypeRepository
                 .findAllByNameLat(serviceRequestDTO.typeService())
-                .get(); // TODO:: bad request exception
+                .orElseThrow(() -> new ServiceException(HttpStatus.BAD_REQUEST, "Указанная категория не существует"));
+        // TODO:: bad request exception
 
         Servise services = serviceMapper.mapToEntity(serviceRequestDTO);
         services.setServiceType(serviceType);
@@ -38,7 +41,7 @@ public class ServiceServ {
     public ServiceResponseDTO getServiceById(Long id) {
         // TODO :: get from database by id
         Servise servise  = serviceRepository.findById(id)
-                .get();
+                .orElseThrow(()-> new ServiceException(HttpStatus.NOT_FOUND, "Запись не найдена"));
 
         return serviceMapper.mapToDTO(servise);
     }
@@ -56,6 +59,7 @@ public class ServiceServ {
         // TODO :: get Service by type from database
         List<Servise> servises = serviceRepository
                 .findAllByServiceTypeNameRusAndIsActiveTrue(type.toString());
+        if (servises.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND, "Запись не найдена");
         return servises.stream().map(serviceMapper::mapToDTO).toList();
 
         // TODO :: Not found Exception

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ServiceRepository extends JpaRepository<Servise,Long> {
    // AndIsActiveTrue -- можно не писать true --  AndIsActive
-    // в чем тут ошибка
+
     List<Servise> findAllByServiceTypeNameRusAndIsActiveTrue(String nameLat);
 
     @Query(nativeQuery = true,
