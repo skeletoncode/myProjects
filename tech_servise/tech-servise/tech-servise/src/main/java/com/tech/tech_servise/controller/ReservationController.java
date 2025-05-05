@@ -3,10 +3,7 @@ package com.tech.tech_servise.controller;
 
 import com.tech.tech_servise.dto.ReservationRequestDTO;
 import com.tech.tech_servise.dto.ReservationResponseDTO;
-import com.tech.tech_servise.dto.ServiceResponseDTO;
 import com.tech.tech_servise.service.ServiceReservation;
-import com.tech.tech_servise.service.ServiceServ;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
@@ -20,8 +17,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Validated
@@ -31,6 +30,7 @@ import java.util.List;
 public class ReservationController {
 
     private final ServiceReservation reservation;
+    private final ServiceReservation serviceReservation;
 
 
     @PostMapping(produces = "application/json")
@@ -42,14 +42,14 @@ public class ReservationController {
 
     // пример LocalDateTime : 2025-05-02T11:02:53.236+00:00
     @PostMapping(value ="/cancel", produces = "application/json")
-    public ResponseEntity<Void> cancelReservation(@Positive @RequestParam int idReservation, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Void> cancelReservation(@Positive @RequestParam Long idReservation, HttpServletRequest httpServletRequest) {
         log.debug("POST request. cancel Reservation {}", idReservation);
         reservation.cancelReservation(idReservation);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping(value = "/changeReservation", produces = "application/json")
-    public ResponseEntity<LocalDateTime> changeReservation(@Positive @RequestParam int id, @NotNull @Future LocalDateTime dateTimeNew) {
+    public ResponseEntity<LocalDateTime> changeReservation(@Positive @RequestParam Long id, @NotNull @Future LocalDateTime dateTimeNew) {
         log.debug("POST request. change Reservation, new dateTime {}", dateTimeNew);
         return new ResponseEntity<>(reservation.changeReservationTime(id, dateTimeNew),HttpStatus.OK);
     }
@@ -68,10 +68,18 @@ public class ReservationController {
         return reservation.getReservationLocalDatetime(fromDateReservation, toDateReservation);
     }
 
+
+
     @GetMapping(path = "/{idReservation}", produces = "application/json")
-    public List<ServiceResponseDTO> getServicesByReservation(@Positive @PathVariable int idReservation) {
+    public ReservationResponseDTO getServicesByReservation(@Positive @PathVariable Long idReservation) {
         log.debug("GET servicesByReservation id = {}", idReservation);
-        return reservation.getServicesByReservationId(idReservation);
+        return reservation.getReservationById(idReservation);
+    }
+
+    @GetMapping(path = "/dayPrice", produces = "application/json")
+    public Map<LocalDate, Double> getDayPrice(LocalDateTime fromDateReservation, LocalDateTime toDateReservation) {
+        log.debug("Get dayPrice day : price");
+        return serviceReservation.getDayPrice(fromDateReservation,toDateReservation);
     }
 
 }

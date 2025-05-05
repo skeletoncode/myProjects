@@ -56,8 +56,18 @@ public class ServiceController {
         "services": [23, 78]
 
 } */
+    /* тестовый запрос
+    {"serviceName": "замена масла",
+"master": "Kevin",
+"price": "22.1",
+"description": "слив - залив масла",
+"typeService": "ENGINE",
+"dateCreated" : "2025-01-15 15:00",
+"isActive": "true"}
 
-    @PostMapping
+     */
+
+    @PostMapping(value = "/createServ",produces = "application/json")
     public ResponseEntity<?> createService(@Valid @RequestBody ServiceRequestDTO serviceRequestDTO, HttpServletRequest request) {
         log.debug("POST request. Service {}", serviceRequestDTO);
         URI uri = URI.create("/api/v1/services" + serviceServ.createService(serviceRequestDTO));

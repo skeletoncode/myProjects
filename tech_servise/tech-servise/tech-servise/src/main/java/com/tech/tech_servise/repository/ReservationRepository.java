@@ -11,7 +11,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findAllByClient(String clientName);
     List<Reservation> findAllByManger(String managerName);
 
-    List<Reservation> findAllByReservationTypeClientTypeClientLatAndIsActiveTrue(String nameLat);
+    // какая-то ошибка здесь
+  //  List<Reservation> findAllByReservationTypeClientTypeClientLatAndIsActiveTrue(String nameLat);
 
     @Query(nativeQuery = true,
     value = "SELECT * FROM reservation" +

@@ -14,7 +14,7 @@ public record ReservationResponseDTO (
         Long id,
         LocalDateTime dateReservation,
         LocalDateTime dateCreateReservation,
-        List<Long> services,
+        List<Long> idServices,
         String manger,
         String client,
        // TypeClient typeClient,
