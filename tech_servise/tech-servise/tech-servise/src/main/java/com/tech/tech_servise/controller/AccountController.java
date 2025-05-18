@@ -44,8 +44,13 @@ public class AccountController {
 
     }
     @PostMapping("/changeProfile")
-    public String changeProfile(ApplicationUser user, Model model, String newLogin, String newPassword, UserRole role) {
+    public void changeProfile(ApplicationUser user, Model model, String newLogin, String newPassword, UserRole role) throws AccountException {
+        accountService.changeProfile(user,newLogin,newPassword,role);
 
+    }
+
+    @PostMapping("/changeReservation")
+    public String changeReservation(ApplicationUser user, Model model) {
         return "";
     }
 

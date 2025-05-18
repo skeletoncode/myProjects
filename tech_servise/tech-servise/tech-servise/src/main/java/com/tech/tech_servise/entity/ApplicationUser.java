@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,9 +21,16 @@ public class ApplicationUser {
     @GeneratedValue
     private long id;
 
+
     private String username;
 
+
     private String password;
+
+    @ElementCollection
+    @CollectionTable(name = "id_reservations")
+    private List<Long> idReservations;
+
 
     @ManyToOne
     @JoinColumn(name="role_id")
