@@ -57,6 +57,9 @@ public class Reservation {
     @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isActive;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private ReservationTypeClient reservationType;
 

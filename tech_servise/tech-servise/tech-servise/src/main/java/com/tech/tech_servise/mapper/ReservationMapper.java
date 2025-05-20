@@ -14,6 +14,7 @@ public class ReservationMapper {
                 .idServices(reservationRequestDTO.idServices())
                 .manger(reservationRequestDTO.manger())
                 .client(reservationRequestDTO.client())
+                .userId(reservationRequestDTO.UserId())
                 .gender(reservationRequestDTO.genderClient())
                 .isActive(reservationRequestDTO.isActive())
                 .build();
@@ -27,6 +28,7 @@ public class ReservationMapper {
                 reservation.getIdServices(),
                 reservation.getManger(),
                 reservation.getClient(),
+                reservation.getUserId(),
                 reservation.getGender()
 
         );

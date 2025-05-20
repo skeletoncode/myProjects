@@ -82,6 +82,11 @@ public class ServiceReservation {
                 .findAllByManger(managerName);
         return reservations.stream().map(reservationMapper::mapToDTO).toList();
     }
+    public List<ReservationResponseDTO> getUserReservation (Long userId) {
+        List<Reservation> reservations = reservationRepository
+                .findByUserId(userId);
+        return reservations.stream().map(reservationMapper::mapToDTO).toList();
+    }
 
     public List<ReservationResponseDTO> getReservationByClient(String clientName) {
         List<Reservation> reservations = reservationRepository

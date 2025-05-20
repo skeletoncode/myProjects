@@ -17,6 +17,7 @@ public record ReservationResponseDTO (
         List<Long> idServices,
         String manger,
         String client,
+        Long userId,
        // TypeClient typeClient,
         GenderClient genderClient
 )

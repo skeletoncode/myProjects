@@ -45,6 +45,9 @@ public record ReservationRequestDTO (
 //        @NotBlank @NotEmpty enum не могут быть пустой строкой
         GenderClient genderClient,
 
+        @Positive
+        Long UserId,
+
         boolean isActive
 )
 

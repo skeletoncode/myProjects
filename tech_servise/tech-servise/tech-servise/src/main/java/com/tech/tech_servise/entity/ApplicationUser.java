@@ -27,10 +27,6 @@ public class ApplicationUser {
 
     private String password;
 
-    @ElementCollection
-    @CollectionTable(name = "id_reservations")
-    private List<Long> idReservations;
-
 
     @ManyToOne
     @JoinColumn(name="role_id")

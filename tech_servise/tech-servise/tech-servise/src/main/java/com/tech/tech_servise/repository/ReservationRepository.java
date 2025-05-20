@@ -10,7 +10,7 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findAllByClient(String clientName);
     List<Reservation> findAllByManger(String managerName);
-
+    List<Reservation> findByUserId(Long userId);
     // какая-то ошибка здесь
   //  List<Reservation> findAllByReservationTypeClientTypeClientLatAndIsActiveTrue(String nameLat);
 
